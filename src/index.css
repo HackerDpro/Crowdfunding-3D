@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-display: 'Space Grotesk', ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --font-sans: 'DM Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+
+  html {
+    font-family: var(--font-sans);
+    scroll-behavior: smooth;
+    color: #181715;
+    background-color: #FAF8F4;
+  }
+
+  h1, h2, h3, .font-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.025em;
+  }
+
+  .font-mono-num {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.maker-grid-bg {
+  background-color: #FAF8F4;
+  background-image: radial-gradient(#DDD6CA 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* Custom range slider for split simulator */
+input[type='range'].maker-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+input[type='range'].maker-slider::-webkit-slider-runnable-track {
+  height: 8px;
+  border-radius: 999px;
+  background: #E7E1D6;
+}
+
+input[type='range'].maker-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  margin-top: -6px;
+  height: 20px;
+  width: 20px;
+  border-radius: 999px;
+  background: #EA580C;
+  border: 3px solid #FFFFFF;
+  box-shadow: 0 2px 6px rgba(24, 23, 21, 0.22);
+  transition: transform 0.15s ease;
+}
+
+input[type='range'].maker-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.12);
+}
+
+input[type='range'].maker-slider::-moz-range-track {
+  height: 8px;
+  border-radius: 999px;
+  background: #E7E1D6;
+}
+
+input[type='range'].maker-slider::-moz-range-thumb {
+  height: 20px;
+  width: 20px;
+  border-radius: 999px;
+  background: #EA580C;
+  border: 3px solid #FFFFFF;
+  box-shadow: 0 2px 6px rgba(24, 23, 21, 0.22);
+}
