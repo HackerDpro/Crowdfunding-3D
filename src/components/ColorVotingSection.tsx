@@ -203,7 +203,9 @@ export const ColorVotingSection: React.FC<ColorVotingSectionProps> = ({
                         className="h-full rounded-full transition-all duration-300"
                         style={{
                           width: `${barWidthPct}%`,
-                          backgroundColor: color.hex === '#F3F2EE' ? '#EA580C' : color.hex,
+                          backgroundColor: ['#FFFFFF', '#F3F2EE'].includes(color.hex)
+                            ? '#D6D3D1'
+                            : color.hex,
                         }}
                       />
                     </div>

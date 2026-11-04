@@ -122,7 +122,7 @@ export const AdminModal: React.FC<AdminModalProps> = ({
   const [newColorNameFr, setNewColorNameFr] = useState('')
   const [newColorNameEs, setNewColorNameEs] = useState('')
   const [newColorHex, setNewColorHex] = useState('#EA580C')
-  const [newColorMaterial, setNewColorMaterial] = useState('PLA+ · 1 kg')
+  const [newColorMaterial, setNewColorMaterial] = useState('Bambu PLA Basic · 1 kg')
   const [editingColor, setEditingColor] = useState<FilamentColor | null>(null)
   const [busyColor, setBusyColor] = useState(false)
 
@@ -200,7 +200,7 @@ export const AdminModal: React.FC<AdminModalProps> = ({
         campaign_status: status,
         organizer_name: organizerName.trim() || 'Diego',
         include_organizer_in_split: includeOrganizer,
-        printer_name: printerName.trim() || '3D Printer',
+        printer_name: printerName.trim() || 'Bambu Lab A1 mini 3D Printer',
         printer_retail_cents: parseEuroInputToCents(retailInput) ?? 0,
         printer_discount_cents: parseEuroInputToCents(discountInput) ?? 0,
         printer_net_cents: previewNetCents,
@@ -1143,7 +1143,7 @@ export const AdminModal: React.FC<AdminModalProps> = ({
                         type="text"
                         value={newColorMaterial}
                         onChange={(e) => setNewColorMaterial(e.target.value)}
-                        placeholder="PLA+ · 1 kg"
+                        placeholder="Bambu PLA Basic · 1 kg"
                         className="rounded-xl border border-[#D6CFC2] bg-[#FAF8F4] px-3 py-2 text-xs sm:col-span-2"
                       />
 

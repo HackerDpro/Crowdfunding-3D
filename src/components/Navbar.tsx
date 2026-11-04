@@ -32,8 +32,8 @@ export const Navbar: React.FC<NavbarProps> = ({
     if (navigator.share) {
       try {
         await navigator.share({
-          title: '3D Printer Group Crowdfunding',
-          text: `${organizerName}'s 3D Printer + Filament group split`,
+          title: 'Bambu Lab A1 mini 3D Printer Group Fund',
+          text: `${organizerName}'s Bambu Lab A1 mini + filament group split`,
           url,
         })
         return

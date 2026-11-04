@@ -163,9 +163,9 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     hero: {
       eyebrow: '€120 Discount Unlocked · Group Split',
       titlePrefix: 'Chipping in together for a',
-      titleHighlight: '3D Printer + Filament',
+      titleHighlight: 'Bambu Lab A1 mini 3D Printer + Filament',
       subtitle:
-        'I got a €120 discount on a €179 3D printer — bringing it down to €59, plus filament spools! Everyone who joins splits the total equally (or adds a little extra if they want). The more of us join, the less everyone pays.',
+        'I got a €120 discount on the €179 Bambu Lab A1 mini 3D Printer — bringing it down to €59, plus Bambu Lab filament spools! Everyone who joins splits the total equally (or adds a little extra if they want). The more of us join, the less everyone pays.',
       receiptTitle: 'Transparent Cost Breakdown',
       receiptBadge: '100% Shared Equally',
       printerRetailLabel: 'Retail price',
@@ -254,7 +254,7 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     colors: {
       eyebrow: 'Color Poll',
       title: 'Vote on the Filament Colors',
-      subtitle: 'We’re getting {spools} × 1 kg filament spools ({price}/kg). Vote for up to {max} colors you’d love to see!',
+      subtitle: 'We’re getting {spools} × 1 kg Bambu Lab filament spools ({price}/kg). Vote for up to {max} official colors!',
       leadingBadge: 'Top #{rank} Spool',
       pinnedBadge: 'Selected',
       voteBtn: 'Vote',
@@ -277,7 +277,7 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
       equalShareTag: 'Equal share',
       boostTag: 'extra boost',
       fixedPledgeTag: 'Locked pledge',
-      emptyState: 'Be the very first person to join {organizer} in splitting the 3D printer!',
+      emptyState: 'Be the very first person to join {organizer} in splitting the Bambu Lab A1 mini!',
       howItWorksTitle: 'How the Fair Split Works',
       step1Title: '1. Total ÷ Total People',
       step1Desc: 'The base price (printer after €120 discount + filament spools) is divided equally by everyone in the group.',
@@ -310,9 +310,9 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     hero: {
       eyebrow: '€120 Korting · Eerlijke Groepsverdeling',
       titlePrefix: 'Samen leggen voor een',
-      titleHighlight: '3D-Printer + Filament',
+      titleHighlight: 'Bambu Lab A1 mini 3D Printer + Filament',
       subtitle:
-        'Ik heb €120 korting op een 3D-printer van €179 — waardoor hij maar €59 kost, plus filamentrollen! Iedereen die meedoet deelt het totaalbedrag eerlijk (of legt vrijblijvend iets extra bij). Hoe meer mensen meedoen, hoe goedkoper voor iedereen.',
+        'Ik heb €120 korting op de Bambu Lab A1 mini 3D Printer van €179 — waardoor hij maar €59 kost, plus Bambu Lab-filamentrollen! Iedereen die meedoet deelt het totaalbedrag eerlijk (of legt vrijblijvend iets extra bij). Hoe meer mensen meedoen, hoe goedkoper voor iedereen.',
       receiptTitle: 'Transparante Prijsopbouw',
       receiptBadge: '100% Eerlijk Gedeeld',
       printerRetailLabel: 'Normale prijs',
@@ -401,7 +401,7 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     colors: {
       eyebrow: 'Kleurenstemming',
       title: 'Kies mee de Filamentkleuren',
-      subtitle: 'We nemen {spools} × 1 kg filamentrollen ({price}/kg). Stem op maximaal {max} kleuren die jij mooi vindt!',
+      subtitle: 'We nemen {spools} × 1 kg Bambu Lab-filamentrollen ({price}/kg). Stem op maximaal {max} officiële kleuren!',
       leadingBadge: 'Top #{rank} Rol',
       pinnedBadge: 'Gekozen',
       voteBtn: 'Stem',
@@ -457,9 +457,9 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     hero: {
       eyebrow: '120 € de Réduction · Partage Équitable',
       titlePrefix: 'On cotise ensemble pour une',
-      titleHighlight: 'Imprimante 3D + Filament',
+      titleHighlight: 'Bambu Lab A1 mini 3D Printer + Filament',
       subtitle:
-        'J’ai obtenu 120 € de réduction sur une imprimante 3D à 179 € — ce qui la ramène à 59 €, plus les bobines de filament ! Tous les participants partagent le total à parts égales (ou donnent un petit plus s’ils le souhaitent). Plus on est nombreux, moins chacun paie.',
+        'J’ai obtenu 120 € de réduction sur la Bambu Lab A1 mini 3D Printer à 179 € — ce qui la ramène à 59 €, plus les bobines de filament Bambu Lab ! Tous les participants partagent le total à parts égales (ou donnent un petit plus s’ils le souhaitent). Plus on est nombreux, moins chacun paie.',
       receiptTitle: 'Détail Transparent du Prix',
       receiptBadge: '100% Partagé Équitablement',
       printerRetailLabel: 'Prix initial',
@@ -548,7 +548,7 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     colors: {
       eyebrow: 'Vote des Couleurs',
       title: 'Choisissez les Couleurs de Filament',
-      subtitle: 'Nous prenons {spools} bobines de 1 kg ({price}/kg). Votez pour {max} couleurs maximum !',
+      subtitle: 'Nous prenons {spools} bobines Bambu Lab de 1 kg ({price}/kg). Votez pour {max} couleurs officielles maximum !',
       leadingBadge: 'Top #{rank}',
       pinnedBadge: 'Retenu',
       voteBtn: 'Voter',
@@ -571,7 +571,7 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
       equalShareTag: 'Part égale',
       boostTag: 'de bonus',
       fixedPledgeTag: 'Montant fixe',
-      emptyState: 'Soyez la première personne à rejoindre {organizer} pour partager l’imprimante 3D !',
+      emptyState: 'Soyez la première personne à rejoindre {organizer} pour partager la Bambu Lab A1 mini !',
       howItWorksTitle: 'Comment fonctionne le partage ?',
       step1Title: '1. Total ÷ Nombre de personnes',
       step1Desc: 'Le total (imprimante après 120 € de remise + bobines de filament) est divisé équitablement entre tous.',
@@ -604,9 +604,9 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     hero: {
       eyebrow: '120 € de Descuento · Reparto Equitativo',
       titlePrefix: 'Compramos entre todos una',
-      titleHighlight: 'Impresora 3D + Filamento',
+      titleHighlight: 'Bambu Lab A1 mini 3D Printer + Filamento',
       subtitle:
-        '¡Conseguí 120 € de descuento en una impresora 3D de 179 €, así que se queda en solo 59 € más las bobinas de filamento! El total se divide a partes iguales entre quienes nos apuntemos (o puedes aportar un extra si quieres). Cuantos más seamos, menos toca por persona.',
+        '¡Conseguí 120 € de descuento en la Bambu Lab A1 mini 3D Printer de 179 €, así que se queda en solo 59 € más las bobinas de filamento Bambu Lab! El total se divide a partes iguales entre quienes nos apuntemos (o puedes aportar un extra si quieres). Cuantos más seamos, menos toca por persona.',
       receiptTitle: 'Desglose Transparente del Precio',
       receiptBadge: '100% Reparto Justo',
       printerRetailLabel: 'Precio original',
@@ -695,7 +695,7 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     colors: {
       eyebrow: 'Votación de Colores',
       title: 'Elige los Colores del Filamento',
-      subtitle: 'Vamos a comprar {spools} bobinas de 1 kg ({price}/kg). ¡Vota hasta por {max} colores favoritos!',
+      subtitle: 'Vamos a comprar {spools} bobinas Bambu Lab de 1 kg ({price}/kg). ¡Vota hasta por {max} colores oficiales!',
       leadingBadge: 'Top #{rank}',
       pinnedBadge: 'Elegido',
       voteBtn: 'Votar',
@@ -718,7 +718,7 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
       equalShareTag: 'Parte igual',
       boostTag: 'extra',
       fixedPledgeTag: 'Importe fijo',
-      emptyState: '¡Sé la primera persona en unirte a {organizer} para compartir la impresora 3D!',
+      emptyState: '¡Sé la primera persona en unirte a {organizer} para compartir la Bambu Lab A1 mini!',
       howItWorksTitle: '¿Cómo funciona el reparto?',
       step1Title: '1. Total ÷ Total de Personas',
       step1Desc: 'El precio total (impresora tras los 120 € de descuento + bobinas de filamento) se divide por igual entre todos.',

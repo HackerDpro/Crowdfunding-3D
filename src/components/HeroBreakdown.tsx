@@ -57,9 +57,7 @@ export const HeroBreakdown: React.FC<HeroBreakdownProps> = ({
               <h1 className="font-display text-3xl font-bold tracking-tight text-[#181715] sm:text-5xl sm:leading-[1.08]">
                 {t.hero.titlePrefix}{' '}
                 <span className="text-[#EA580C]">
-                  {settings.printer_name !== '3D Printer'
-                    ? `${settings.printer_name} + Filament`
-                    : t.hero.titleHighlight}
+                  {settings.printer_name} + {t.hero.filamentLabel}
                 </span>
               </h1>
 
@@ -222,7 +220,7 @@ export const HeroBreakdown: React.FC<HeroBreakdownProps> = ({
                 <img
                   src="/images/printer-hero.jpg"
                   alt={settings.printer_name}
-                  className="h-full w-full object-cover"
+                  className="h-full w-full object-contain"
                 />
                 <div className="absolute top-3 left-3 rounded-full bg-[#181715]/85 px-3 py-1 text-xs font-bold text-white backdrop-blur-xs">
                   <span className="font-mono-num text-[#FB923C]">
