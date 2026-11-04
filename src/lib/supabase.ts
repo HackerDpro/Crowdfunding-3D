@@ -260,6 +260,14 @@ export function saveParticipationToken(entry: SavedParticipationToken): void {
   }
 }
 
+export function clearParticipationTokens(): void {
+  try {
+    localStorage.removeItem(TOKENS_STORAGE_KEY)
+  } catch {
+    // ignore storage errors
+  }
+}
+
 export interface CampaignBundle {
   settings: CampaignSettings
   colors: FilamentColor[]
@@ -413,6 +421,13 @@ export async function adminDeleteColorRpc(adminCode: string, colorId: string): P
 
 export async function adminResetColorVotesRpc(adminCode: string): Promise<void> {
   const { error } = await supabase.rpc('admin_reset_color_votes', {
+    p_admin_code: adminCode,
+  })
+  if (error) throw error
+}
+
+export async function adminResetEverythingRpc(adminCode: string): Promise<void> {
+  const { error } = await supabase.rpc('admin_reset_everything', {
     p_admin_code: adminCode,
   })
   if (error) throw error

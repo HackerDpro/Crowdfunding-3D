@@ -16,6 +16,7 @@ A real-time, multi-language (**English, Nederlands, Français, Español**) group
   - Add, edit, remove, or mark participants as **Paid / Unpaid**.
   - Add, edit, pin, hide/show, or delete filament colors and manage votes.
   - Change the Admin Code anytime.
+  - **Reset Everything to Defaults**: A typed-confirmation factory reset restores the original Bambu Lab A1 mini campaign, pricing, two-spool setup, payment settings, and 13-color catalog; permanently removes all participants and votes; clears custom colors; and restores the original Admin Code. The admin is signed out after a successful reset.
 
 ## Tech Stack
 
@@ -37,6 +38,7 @@ The PostgreSQL schema, RLS policies, RPC functions, and catalog updates are vers
 ```
 supabase/migrations/20261104220000_init_crowdfunding_3d.sql
 supabase/migrations/20261104233000_bambu_a1_mini_and_official_filaments.sql
+supabase/migrations/20261104234500_admin_reset_everything.sql
 ```
 
 ## Deploying to Vercel or Netlify

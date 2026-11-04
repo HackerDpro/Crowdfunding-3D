@@ -9,6 +9,7 @@ import type {
   SavedParticipationToken,
 } from './types'
 import {
+  clearParticipationTokens,
   DEFAULT_COLORS,
   DEFAULT_SETTINGS,
   fetchCampaignBundle,
@@ -167,6 +168,14 @@ export function App() {
     }
   }
 
+  const handleResetComplete = () => {
+    clearParticipationTokens()
+    setSavedTokens([])
+    setPreselectedColorIds([])
+    handleAdminLogout()
+    setIsAdminOpen(false)
+  }
+
   const t = TRANSLATIONS[locale]
 
   return (
@@ -270,6 +279,7 @@ export function App() {
         adminCode={adminCode}
         onAdminUnlocked={handleAdminUnlocked}
         onAdminLogout={handleAdminLogout}
+        onResetComplete={handleResetComplete}
         onRefresh={loadData}
         onToast={showToast}
       />
