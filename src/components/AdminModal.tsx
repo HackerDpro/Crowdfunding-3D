@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import {
+  AlertTriangle,
   Check,
   Edit2,
   Eye,
@@ -37,6 +38,7 @@ import {
   adminDeleteColorRpc,
   adminManageParticipantRpc,
   adminResetColorVotesRpc,
+  adminResetEverythingRpc,
   adminUpdateSettingsRpc,
   adminUpsertColorRpc,
   verifyAdminCodeRpc,
@@ -54,6 +56,7 @@ interface AdminModalProps {
   adminCode: string | null
   onAdminUnlocked: (code: string) => void
   onAdminLogout: () => void
+  onResetComplete: () => void
   onRefresh: () => Promise<void>
   onToast: (msg: string) => void
 }
@@ -71,6 +74,7 @@ export const AdminModal: React.FC<AdminModalProps> = ({
   adminCode,
   onAdminUnlocked,
   onAdminLogout,
+  onResetComplete,
   onRefresh,
   onToast,
 }) => {
@@ -131,6 +135,12 @@ export const AdminModal: React.FC<AdminModalProps> = ({
   const [confirmAdminCode, setConfirmAdminCode] = useState('')
   const [savingCode, setSavingCode] = useState(false)
   const [actionError, setActionError] = useState<string | null>(null)
+
+  // Factory Reset State
+  const [isResetDialogOpen, setIsResetDialogOpen] = useState(false)
+  const [resetConfirmation, setResetConfirmation] = useState('')
+  const [resettingEverything, setResettingEverything] = useState(false)
+  const [resetError, setResetError] = useState<string | null>(null)
 
   // Sync local form fields when settings change
   useEffect(() => {
@@ -430,6 +440,26 @@ export const AdminModal: React.FC<AdminModalProps> = ({
     }
   }
 
+  const handleResetEverything = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!adminCode || resetConfirmation !== 'RESET' || resettingEverything) return
+
+    setResetError(null)
+    setResettingEverything(true)
+    try {
+      await adminResetEverythingRpc(adminCode)
+      await onRefresh()
+      setIsResetDialogOpen(false)
+      setResetConfirmation('')
+      onResetComplete()
+      onToast('Everything is back to the original defaults. Admin locked.')
+    } catch (err: unknown) {
+      setResetError(err instanceof Error ? err.message : String(err))
+    } finally {
+      setResettingEverything(false)
+    }
+  }
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/55 p-3 sm:p-6 backdrop-blur-xs overflow-y-auto">
       <div className="relative my-auto flex max-h-[92vh] w-full max-w-4xl flex-col overflow-hidden rounded-3xl border border-[#DFD8CC] bg-[#FAF8F4] shadow-2xl">
@@ -532,7 +562,7 @@ export const AdminModal: React.FC<AdminModalProps> = ({
                     label: `Colors & Votes (${allColorsWithVotes.length})`,
                     icon: Palette,
                   },
-                  { id: 'security', label: 'Admin Code', icon: KeyRound },
+                  { id: 'security', label: 'Security & Reset', icon: KeyRound },
                 ] as const
               ).map((tab) => {
                 const Icon = tab.icon
@@ -1363,58 +1393,163 @@ export const AdminModal: React.FC<AdminModalProps> = ({
                 </div>
               )}
 
-              {/* TAB 4: SECURITY / CHANGE ADMIN CODE */}
+              {/* TAB 4: SECURITY / CHANGE ADMIN CODE / FACTORY RESET */}
               {activeTab === 'security' && (
-                <form
-                  onSubmit={handleChangeAdminCode}
-                  className="max-w-md mx-auto rounded-2xl border border-[#DFD8CC] bg-white p-6 space-y-4"
-                >
-                  <h3 className="font-display text-base font-bold text-[#181715]">
-                    Change Admin Code
-                  </h3>
-                  <p className="text-xs text-[#6B665E]">
-                    Your admin code is stored as a bcrypt hash inside a private PostgreSQL schema on Supabase.
-                  </p>
-
-                  <div>
-                    <label className="block text-xs font-bold text-[#44403C] mb-1">
-                      New Admin Code
-                    </label>
-                    <input
-                      type="password"
-                      required
-                      minLength={4}
-                      value={newAdminCode}
-                      onChange={(e) => setNewAdminCode(e.target.value)}
-                      className="w-full rounded-xl border border-[#D6CFC2] bg-[#FAF8F4] px-3.5 py-2.5 font-mono-num text-sm"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold text-[#44403C] mb-1">
-                      Confirm New Admin Code
-                    </label>
-                    <input
-                      type="password"
-                      required
-                      minLength={4}
-                      value={confirmAdminCode}
-                      onChange={(e) => setConfirmAdminCode(e.target.value)}
-                      className="w-full rounded-xl border border-[#D6CFC2] bg-[#FAF8F4] px-3.5 py-2.5 font-mono-num text-sm"
-                    />
-                  </div>
-
-                  <button
-                    type="submit"
-                    disabled={savingCode}
-                    className="w-full rounded-xl bg-[#181715] px-4 py-2.5 text-xs font-bold text-white hover:bg-[#292524] cursor-pointer"
+                <div className="space-y-6">
+                  <form
+                    onSubmit={handleChangeAdminCode}
+                    className="max-w-md mx-auto rounded-2xl border border-[#DFD8CC] bg-white p-6 space-y-4"
                   >
-                    {savingCode ? 'Updating...' : 'Update Admin Code'}
-                  </button>
-                </form>
+                    <h3 className="font-display text-base font-bold text-[#181715]">
+                      Change Admin Code
+                    </h3>
+                    <p className="text-xs text-[#6B665E]">
+                      Your admin code is stored as a bcrypt hash inside a private PostgreSQL schema on Supabase.
+                    </p>
+
+                    <div>
+                      <label className="block text-xs font-bold text-[#44403C] mb-1">
+                        New Admin Code
+                      </label>
+                      <input
+                        type="password"
+                        required
+                        minLength={4}
+                        value={newAdminCode}
+                        onChange={(e) => setNewAdminCode(e.target.value)}
+                        className="w-full rounded-xl border border-[#D6CFC2] bg-[#FAF8F4] px-3.5 py-2.5 font-mono-num text-sm"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-[#44403C] mb-1">
+                        Confirm New Admin Code
+                      </label>
+                      <input
+                        type="password"
+                        required
+                        minLength={4}
+                        value={confirmAdminCode}
+                        onChange={(e) => setConfirmAdminCode(e.target.value)}
+                        className="w-full rounded-xl border border-[#D6CFC2] bg-[#FAF8F4] px-3.5 py-2.5 font-mono-num text-sm"
+                      />
+                    </div>
+
+                    <button
+                      type="submit"
+                      disabled={savingCode}
+                      className="w-full rounded-xl bg-[#181715] px-4 py-2.5 text-xs font-bold text-white hover:bg-[#292524] cursor-pointer"
+                    >
+                      {savingCode ? 'Updating...' : 'Update Admin Code'}
+                    </button>
+                  </form>
+
+                  <section className="mx-auto max-w-md rounded-2xl border border-red-200 bg-red-50/70 p-6">
+                    <div className="flex items-center gap-2 text-red-900">
+                      <AlertTriangle className="h-4 w-4" />
+                      <h3 className="font-display text-base font-bold">Danger Zone</h3>
+                    </div>
+                    <p className="mt-2 text-xs leading-relaxed text-red-800">
+                      Restore the original Bambu Lab A1 mini campaign as if no admin change had ever been made.
+                      This permanently removes all participants and votes, and also resets the Admin Code.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setResetConfirmation('')
+                        setResetError(null)
+                        setIsResetDialogOpen(true)
+                      }}
+                      className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl border border-red-300 bg-white px-4 py-2.5 text-xs font-bold text-red-800 transition hover:bg-red-100 cursor-pointer"
+                    >
+                      <RotateCcw className="h-3.5 w-3.5" />
+                      Reset Everything to Defaults
+                    </button>
+                  </section>
+                </div>
               )}
             </div>
           </>
+        )}
+
+        {/* Typed confirmation for the irreversible factory reset */}
+        {isResetDialogOpen && adminCode && (
+          <div className="absolute inset-0 z-20 flex items-center justify-center overflow-y-auto bg-[#181715]/75 p-4 backdrop-blur-sm">
+            <form
+              onSubmit={handleResetEverything}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="reset-everything-title"
+              className="my-auto w-full max-w-md rounded-3xl border border-red-200 bg-white p-5 shadow-2xl sm:p-6"
+            >
+              <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-red-100 text-red-700">
+                <AlertTriangle className="h-5 w-5" />
+              </div>
+              <h3
+                id="reset-everything-title"
+                className="mt-4 font-display text-xl font-bold text-[#181715]"
+              >
+                Reset absolutely everything?
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-[#57534E]">
+                This returns the campaign to its original defaults as if no admin change had ever happened.
+              </p>
+
+              <ul className="mt-4 space-y-2 rounded-2xl border border-red-100 bg-red-50/70 p-4 text-xs leading-relaxed text-red-900">
+                <li>• Restore the A1 mini, €179 / −€120 / €59 pricing and 2 spools.</li>
+                <li>• Permanently delete every participant, paid status and color vote.</li>
+                <li>• Restore the original 13 Bambu Lab colors and remove custom colors.</li>
+                <li>• Clear announcements, extra costs and all payment instructions.</li>
+                <li>• Restore the original Admin Code and sign you out.</li>
+              </ul>
+
+              <label
+                htmlFor="reset-everything-confirmation"
+                className="mt-5 block text-xs font-bold text-[#44403C]"
+              >
+                Type <span className="font-mono-num text-red-700">RESET</span> to confirm
+              </label>
+              <input
+                id="reset-everything-confirmation"
+                type="text"
+                autoFocus
+                autoComplete="off"
+                disabled={resettingEverything}
+                value={resetConfirmation}
+                onChange={(e) => setResetConfirmation(e.target.value)}
+                placeholder="RESET"
+                className="mt-1.5 w-full rounded-xl border border-[#D6CFC2] bg-[#FAF8F4] px-3.5 py-2.5 font-mono-num text-sm font-bold tracking-wider text-[#181715] focus:border-red-500 focus:outline-none focus:ring-3 focus:ring-red-500/15"
+              />
+
+              {resetError && (
+                <div className="mt-3 rounded-xl border border-red-200 bg-red-50 px-3.5 py-2.5 text-xs font-semibold text-red-800">
+                  {resetError}
+                </div>
+              )}
+
+              <div className="mt-5 grid grid-cols-2 gap-3">
+                <button
+                  type="button"
+                  disabled={resettingEverything}
+                  onClick={() => {
+                    setIsResetDialogOpen(false)
+                    setResetConfirmation('')
+                    setResetError(null)
+                  }}
+                  className="rounded-xl border border-[#DFD8CC] bg-white px-4 py-2.5 text-xs font-bold text-[#57534E] hover:bg-[#FAF8F4] disabled:opacity-50 cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={resetConfirmation !== 'RESET' || resettingEverything}
+                  className="rounded-xl bg-red-700 px-4 py-2.5 text-xs font-bold text-white hover:bg-red-800 disabled:opacity-40 cursor-pointer"
+                >
+                  {resettingEverything ? 'Resetting...' : 'Reset Everything'}
+                </button>
+              </div>
+            </form>
+          </div>
         )}
       </div>
     </div>
